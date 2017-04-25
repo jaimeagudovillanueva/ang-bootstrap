@@ -25,11 +25,11 @@ export class PersonaService {
     return this.http.request(URL).map((res: any) => res.json());
   }
 
-  getPersonas(page: string): Observable<any[]> {
+  getPersonas(page: number): Observable<any[]> {
       return this.query('/personas', [`page=${page}`]);
   }
 
-  getPersona(id: string): Observable<any[]> {
+  getPersona(id: number): Observable<any[]> {
     return this.query(`/personas/${id}`);
   }
 }

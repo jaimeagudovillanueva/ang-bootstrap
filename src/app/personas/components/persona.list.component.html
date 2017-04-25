@@ -24,5 +24,28 @@
                 </tr>
             </tbody>
         </table>
+
+        <div align="center">
+            <nav>
+                <ul class="pagination">
+                    <li class="page-item"><a href="javascript:void(0)" class="page-link" 
+                        aria-label="Primera" (click)="irPagina(primera)"> <span aria-hidden="true">Primera</span>
+                    </a></li>
+                    <li class="page-item"><a href="javascript:void(0)" class="page-link" 
+                        aria-label="Anterior" (click)="irPagina(anterior)"> <span aria-hidden="true">«</span>
+                    </a></li>
+                    <li *ngFor="let item of range(datosPagina.number + 1, datosPagina.totalPages)"
+                        class="page-item" [ngClass]="{'active' : item == datosPagina.number + 1}"
+                        (click)="buscarPersonas(item)">
+                        <a href="javascript:void(0)" class="page-link">{{item}}</a></li>
+                    <li class="page-item"><a href="javascript:void(0)" class="page-link"
+                        aria-label="Next" (click)="irPagina(siguiente)"> <span aria-hidden="true">»</span>
+                    </a></li>
+                    <li class="page-item"><a href="javascript:void(0)" class="page-link"
+                        aria-label="Última" (click)="irPagina(ultima)"> <span aria-hidden="true">Última</span>
+                    </a></li>
+                </ul>
+            </nav>
+        </div>
      </div>
 </div>

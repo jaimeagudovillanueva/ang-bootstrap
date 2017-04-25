@@ -10,7 +10,7 @@ import {PersonaService} from '../services/persona.service';
 })
 export class PersonaComponent implements OnInit {
 
-  id: string;
+  id: number;
   datos: Object;
   link: string;
 
