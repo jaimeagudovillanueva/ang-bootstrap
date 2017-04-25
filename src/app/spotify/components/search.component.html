@@ -1,0 +1,47 @@
+<h3>Buscador</h3>
+
+<div class="form-inline">
+    <div class="form-group">
+        <input class="form-control" #newquery [value]="query" (keydown.enter)="submit(newquery.value)">
+    </div>
+    <div class="form-group">
+        <button (click)="submit(newquery.value)" class="btn btn-primary">Buscar</button>
+    </div>
+</div>
+
+<div *ngIf="results">
+    <div *ngIf="!results.length">
+    No se han encontrado elementos con el campo de búsqueda '{{ query }}'
+    </div>
+
+    <div *ngIf="results.length">
+    <h3>Resultados</h3>
+
+    <div class="row">
+        <div class="col-sm-6 col-md-4" *ngFor="let t of results">
+        <div class="thumbnail">
+            <div class="content">
+                <a [routerLink]="['/albums', t.album.id]">
+                    <img src="{{ t.album.images[0].url }}" class="img-responsive img-rounded" title="{{t.album.name}}">
+                </a>
+                <div class="caption">
+                    <h4>
+                        <a [routerLink]="['/artists', t.artists[0].id]" style="text-decoration: none !important">
+                            <span class="label label-primary"><i class="glyphicon glyphicon-user"></i> {{ t.artists[0].name }}</span>
+                        </a>
+                        <a [routerLink]="['/albums', t.album.id]" style="text-decoration: none !important">
+                                <span class="label label-info"><i class="glyphicon glyphicon-music"></i> {{ t.album.name }}</span>
+                        </a>
+                    </h4>
+                    <h4>
+                        <a [routerLink]="['/tracks', t.id]" style="text-decoration: none !important">
+                            <span class="label label-default"><i class="glyphicon glyphicon-volume-up"></i> {{ t.name }}</span> 
+                        </a>
+                    </h4>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    </div>
+</div>

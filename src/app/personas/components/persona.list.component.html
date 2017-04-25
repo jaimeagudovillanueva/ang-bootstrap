@@ -1,0 +1,28 @@
+<h3>Personas</h3>
+
+<div *ngIf="resultados">
+    <div *ngIf="!resultados.length">
+        No se ha encontrado ninguna persona
+    </div>
+
+    <div *ngIf="resultados.length">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Primer apellido</th>
+                    <th>Segundo apellido</th>
+                    <th>DNI</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let t of resultados" (click)="detallePersona(t.persona.id)">
+                    <td>{{t.persona.nombre}}</td>
+                    <td>{{t.persona.primerApellido}}</td>
+                    <td>{{t.persona.segundoApellido}}</td>
+                    <td>{{t.persona.nif}}</td>
+                </tr>
+            </tbody>
+        </table>
+     </div>
+</div>
