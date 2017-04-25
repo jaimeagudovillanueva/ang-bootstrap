@@ -1,5 +1,14 @@
 <h3>Personas</h3>
 
+<div class="form-inline">
+    <div class="form-group">
+        <input class="form-control" #nuevoFiltro [value]="textoFiltro" (keydown.enter)="buscarPersonas(1, nuevoFiltro.value)">
+    </div>
+    <div class="form-group">
+        <button (click)="buscarPersonas(1, nuevoFiltro.value)" class="btn btn-primary">Buscar</button>
+    </div>
+</div>
+
 <div *ngIf="resultados">
     <div *ngIf="!resultados.length">
         No se ha encontrado ninguna persona
@@ -36,7 +45,7 @@
                     </a></li>
                     <li *ngFor="let item of range(datosPagina.number + 1, datosPagina.totalPages)"
                         class="page-item" [ngClass]="{'active' : item == datosPagina.number + 1}"
-                        (click)="buscarPersonas(item)">
+                        (click)="buscarPersonas(item, textoFiltro)">
                         <a href="javascript:void(0)" class="page-link">{{item}}</a></li>
                     <li class="page-item"><a href="javascript:void(0)" class="page-link"
                         aria-label="Next" (click)="irPagina(siguiente)"> <span aria-hidden="true">»</span>

@@ -18,30 +18,36 @@ export class PersonaListComponent implements OnInit {
   primera: string;
   ultima: string;
 
+  textoFiltro: string;
+
   constructor(private personaService: PersonaService,
               private router: Router,
               private route: ActivatedRoute) {
     this.route
       .queryParams
       .subscribe(params => { this.pagina = params['page'] || ''; });
+
+    this.textoFiltro = '';
   }
 
   range = (paginaActual, total) => { 
          let ultimo = paginaActual < total -5 ? paginaActual + 5 : total;
-         let primero = paginaActual > 5 ? paginaActual -5 : 0;
-         let a = []; for(let i = primero; i < ultimo; ++i) { a.push(i+1) } return a;
+         let primero = paginaActual > 5 ? paginaActual - 5 : 1;
+         let a = []; for(let i = primero; i <= ultimo; i++) { a.push( i) } return a;
   }
 
   ngOnInit(): void {
     this.buscarPersonas(1);
   }
 
-  buscarPersonas(page: number): void {
-    this.personaService.getPersonas(page - 1).subscribe((res: any) => this.procesaResultados(res));
+  buscarPersonas(page: number, filtro?: string): void {
+    this.textoFiltro = filtro ? filtro : '';
+    this.personaService.getPersonas(page - 1, this.textoFiltro).subscribe((res: any) => this.procesaResultados(res));
   }
 
   procesaResultados(res: any): void {
     this.resultados = null;
+    this.vaciaDatosNavegacion();
     if (res && res.content) {
       this.resultados = res.content;
 
@@ -70,8 +76,17 @@ export class PersonaListComponent implements OnInit {
   }
 
   irPagina(URL: string): void {
-      this.personaService.queryLink(URL).subscribe((res: any) => {
-        this.procesaResultados(res);
-     });
+      if (URL) {
+        this.personaService.queryLink(URL).subscribe((res: any) => {
+            this.procesaResultados(res);
+        });
+      }
+  }
+
+  vaciaDatosNavegacion(): void {
+      this.anterior = null;
+      this.siguiente = null;
+      this.primera = null;
+      this.ultima = null;
   }
 }
